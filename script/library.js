@@ -11,3 +11,27 @@ function addBookToLib (input) {
 
     library.push(book);
 }
+
+let book = new Book (
+    '1984', 
+    'George Orwell', 
+    328);
+library.push(book);
+
+book = new Book (
+    'Being Mortal', 
+    'Atul Gawande', 
+    304);
+library.push(book);
+
+book = new Book (
+    'A Little Life', 
+    'Hanya Yanagihara', 
+    814);
+library.push(book);
+
+book = new Book (
+    'The Winds of Winter', 
+    'George R. R. Martin', 
+    '???');
+library.push(book);
