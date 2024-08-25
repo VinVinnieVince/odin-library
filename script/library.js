@@ -7,31 +7,31 @@ function Book(title, author, pages) {
 }
 
 function addBookToLib (input) {
-    const book = new Book (input.title, input.author, input.pages);
+    const newBook = new Book (input.title, input.author, input.pages);
 
-    library.push(book);
+    library.push(newBook);
 }
 
-let book = new Book (
+let exampleBook = new Book (
     '1984', 
     'George Orwell', 
     328);
-library.push(book);
+library.push(exampleBook);
 
-book = new Book (
+exampleBook = new Book (
     'Being Mortal', 
     'Atul Gawande', 
     304);
-library.push(book);
+library.push(exampleBook);
 
-book = new Book (
+exampleBook = new Book (
     'A Little Life', 
     'Hanya Yanagihara', 
     814);
-library.push(book);
+library.push(exampleBook);
 
-book = new Book (
+exampleBook = new Book (
     'The Winds of Winter', 
     'George R. R. Martin', 
     '???');
-library.push(book);
+library.push(exampleBook);
