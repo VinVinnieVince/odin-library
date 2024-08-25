@@ -5,6 +5,7 @@ function Book(title, author, pages, id) {
     this.author = author;
     this.pages = pages;
     this.id = id;
+    this.read = false;
 }
 
 const libraryContainer = document.querySelector('.libraryContainer');
@@ -16,6 +17,8 @@ function addBookToWebpage(book) {
     const bookAuthor = document.createElement('p');
     const bookPages = document.createElement('p');
     const removeBtn = document.createElement('button');
+    const readBtn = document.createElement('button');
+    const unreadBtn = document.createElement('button');
 
     bookContainer.id = 'book-' + String(book.id);
 
@@ -23,9 +26,27 @@ function addBookToWebpage(book) {
     bookAuthor.textContent = book.author;
     bookPages.textContent = 'Pages: ' + book.pages;
     removeBtn.textContent = 'Remove';
+    readBtn.textContent = 'Mark Read';
+    unreadBtn.textContent = 'Remove (Read)';
 
     removeBtn.addEventListener('click', () => {
         document.getElementById('book-' + String(book.id)).remove();
+    });
+
+    readBtn.addEventListener('click', () => {
+        if (!book.read) {
+            bookTitle.textContent += ' (Read)';
+        }
+        book.read = true;
+        bookContainer.removeChild(readBtn);
+        bookContainer.appendChild(unreadBtn);
+    });
+
+    unreadBtn.addEventListener('click', () => {
+        bookTitle.textContent = book.title;
+        book.read = false;
+        bookContainer.removeChild(unreadBtn);
+        bookContainer.appendChild(readBtn);
     });
 
     libraryContainer.appendChild(bookContainer);
@@ -33,6 +54,7 @@ function addBookToWebpage(book) {
     bookContainer.appendChild(bookAuthor);
     bookContainer.appendChild(bookPages);
     bookContainer.appendChild(removeBtn);
+    bookContainer.appendChild(readBtn);
 }
 
 let indexCount = 0
