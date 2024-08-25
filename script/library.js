@@ -1,65 +1,31 @@
 const library = []
 
-function Book(title, author, pages) {
+function Book(title, author, pages, id) {
     this.title = title;
     this.author = author;
     this.pages = pages;
+    this.id = id;
 }
-
-function addBookToLib (title, author, pages) {
-    const newBook = new Book (title, author, pages);
-
-    library.push(newBook);
-}
-
-let exampleBook = new Book (
-    '1984', 
-    'George Orwell', 
-    328);
-library.push(exampleBook);
-
-exampleBook = new Book (
-    'Being Mortal', 
-    'Atul Gawande', 
-    304);
-library.push(exampleBook);
-
-exampleBook = new Book (
-    'A Little Life', 
-    'Hanya Yanagihara', 
-    814);
-library.push(exampleBook);
-
-exampleBook = new Book (
-    'The Winds of Winter', 
-    'George R. R. Martin', 
-    '???');
-library.push(exampleBook);
 
 const libraryContainer = document.querySelector('.libraryContainer');
 
-let indexCounter = 0
-function addBookToWebpage(title, author, pages) {
+function addBookToWebpage(book) {
     const bookContainer = document.createElement('div');
     // h1 for website titles, h2 for sub-headings, hence h3 for book titles
     const bookTitle = document.createElement('h3');
     const bookAuthor = document.createElement('p');
     const bookPages = document.createElement('p');
     const removeBtn = document.createElement('button');
- 
-    // to ensure removeBtn doesn't reference the original indexCounter - the book id will be specific to *that* book
-    const index = +indexCounter
 
-    bookContainer.id = 'book-' + index;
+    bookContainer.id = 'book-' + String(book.id);
 
-    bookTitle.textContent = title;
-    bookAuthor.textContent = author;
-    bookPages.textContent = 'Pages: ' + pages;
+    bookTitle.textContent = book.title;
+    bookAuthor.textContent = book.author;
+    bookPages.textContent = 'Pages: ' + book.pages;
     removeBtn.textContent = 'Remove';
 
-
     removeBtn.addEventListener('click', () => {
-        document.getElementById('book-' + index).remove();
+        document.getElementById('book-' + String(book.id)).remove();
     });
 
     libraryContainer.appendChild(bookContainer);
@@ -67,13 +33,23 @@ function addBookToWebpage(title, author, pages) {
     bookContainer.appendChild(bookAuthor);
     bookContainer.appendChild(bookPages);
     bookContainer.appendChild(removeBtn);
-
-    indexCounter++;
 }
 
-for (book in library) {
-    addBookToWebpage(library[book].title, library[book].author, library[book].pages);
+let indexCount = 0
+function addNewBook (title, author, pages) {
+    // Assign ID & add book to library
+    const newBook = new Book (title, author, pages, indexCount);
+    library.push(newBook);
+
+    addBookToWebpage(newBook);
+    indexCount++;
 }
+
+// examples
+addNewBook('1984', 'George Orwell', 328);
+addNewBook('Being Mortal', 'Atul Gawande', 304);
+addNewBook('A Little Life', 'Hanya Yanagihara', 814);
+addNewBook('The Winds of Winter', 'George R. R. Martin', '???');
 
 const dialog = document.querySelector('dialog');
 const openBtn = document.querySelector('.bookFormOpen');
@@ -94,8 +70,7 @@ function submitBook () {
     const newAuthor = document.getElementById('author');
     const newPages = document.getElementById('pages');
 
-    addBookToLib(newTitle.value, newAuthor.value, newPages.value);
-    addBookToWebpage(newTitle.value, newAuthor.value, newPages.value);
+    addNewBook(newTitle.value, newAuthor.value, newPages.value);
 
     // Reset forms in case another book to add
     newTitle.value = '';
