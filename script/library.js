@@ -50,7 +50,7 @@ function addBookToWebpage(title, author, pages) {
     // to ensure removeBtn doesn't reference the original indexCounter - the book id will be specific to *that* book
     const index = +indexCounter
 
-    bookContainer.id = 'book-' + String(index);
+    bookContainer.id = 'book-' + index;
 
     bookTitle.textContent = title;
     bookAuthor.textContent = author;
@@ -59,7 +59,7 @@ function addBookToWebpage(title, author, pages) {
 
 
     removeBtn.addEventListener('click', () => {
-        document.getElementById('book-' + String(index)).remove();
+        document.getElementById('book-' + index).remove();
     });
 
     libraryContainer.appendChild(bookContainer);
