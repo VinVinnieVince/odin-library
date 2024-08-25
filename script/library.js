@@ -36,10 +36,7 @@ exampleBook = new Book (
     '???');
 library.push(exampleBook);
 
-const body = document.querySelector('body');
-const libraryContainer = document.createElement('div');
-
-body.appendChild(libraryContainer);
+const libraryContainer = document.querySelector('.libraryContainer');
 
 function displayBooks () {
     libraryContainer.textContent = '';
