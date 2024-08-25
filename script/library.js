@@ -38,28 +38,42 @@ library.push(exampleBook);
 
 const libraryContainer = document.querySelector('.libraryContainer');
 
-function displayBooks () {
-    libraryContainer.textContent = '';
+let indexCounter = 0
+function addBookToWebpage(title, author, pages) {
+    const bookContainer = document.createElement('div');
+    // h1 for website titles, h2 for sub-headings, hence h3 for book titles
+    const bookTitle = document.createElement('h3');
+    const bookAuthor = document.createElement('p');
+    const bookPages = document.createElement('p');
+    const removeBtn = document.createElement('button');
+ 
+    // to ensure removeBtn doesn't reference the original indexCounter - the book id will be specific to *that* book
+    const index = +indexCounter
 
-    for (book in library) {
-        const bookContainer = document.createElement('div');
-        // h1 for website titles, h2 for sub-headings, hence h3 for book titles
-        const bookTitle = document.createElement('h3');
-        const bookAuthor = document.createElement('p');
-        const bookPages = document.createElement('p');
+    bookContainer.id = 'book-' + String(index);
 
-        bookTitle.textContent = library[book].title;
-        bookAuthor.textContent = library[book].author;
-        bookPages.textContent = 'Pages: ' + library[book].pages;
+    bookTitle.textContent = title;
+    bookAuthor.textContent = author;
+    bookPages.textContent = 'Pages: ' + pages;
+    removeBtn.textContent = 'Remove';
 
-        libraryContainer.appendChild(bookContainer);
-        bookContainer.appendChild(bookTitle);
-        bookContainer.appendChild(bookAuthor);
-        bookContainer.appendChild(bookPages);
-    }
+
+    removeBtn.addEventListener('click', () => {
+        document.getElementById('book-' + String(index)).remove();
+    });
+
+    libraryContainer.appendChild(bookContainer);
+    bookContainer.appendChild(bookTitle);
+    bookContainer.appendChild(bookAuthor);
+    bookContainer.appendChild(bookPages);
+    bookContainer.appendChild(removeBtn);
+
+    indexCounter++;
 }
 
-displayBooks();
+for (book in library) {
+    addBookToWebpage(library[book].title, library[book].author, library[book].pages);
+}
 
 const dialog = document.querySelector('dialog');
 const openBtn = document.querySelector('.bookFormOpen');
@@ -81,8 +95,9 @@ function submitBook () {
     const newPages = document.getElementById('pages');
 
     addBookToLib(newTitle.value, newAuthor.value, newPages.value);
-    displayBooks();
+    addBookToWebpage(newTitle.value, newAuthor.value, newPages.value);
 
+    // Reset forms in case another book to add
     newTitle.value = '';
     newAuthor.value = '';
     newPages.value = '';
