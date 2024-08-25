@@ -62,3 +62,16 @@ function displayBooks () {
 }
 
 displayBooks();
+
+const dialog = document.querySelector('dialog');
+const openBtn = document.querySelector('.bookFormOpen');
+const closeBtn = document.querySelector('.bookFormClose');
+
+openBtn.addEventListener('click', () => {
+    dialog.showModal();
+})
+
+closeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    dialog.close();
+})
