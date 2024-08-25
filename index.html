@@ -10,7 +10,22 @@
     <body>
         <div class="topBar">
             <h1>Library</h1>
-            <button>Add book</button>
+            <div class="bookDialog">
+                <dialog>
+                    <form action="">
+                        <p>Add a book</p>
+                        <label for="title">Book Title</label>
+                        <input type="text" name="title" id="title" autofocus required>
+                        <label for="author">Author</label>
+                        <input type="text" name="author" id="author" required>
+                        <label for="pages">Pages</label>
+                        <input type="text" name="pages" id="pages" required>
+                        <button>Submit</button>
+                        <button class="bookFormClose">Close</button>
+                    </form>
+                </dialog>
+                <button class="bookFormOpen">Add book</button>
+            </div>
         </div>
         <div class="libraryContainer">
             
