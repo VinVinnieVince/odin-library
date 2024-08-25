@@ -6,8 +6,8 @@ function Book(title, author, pages) {
     this.pages = pages;
 }
 
-function addBookToLib (input) {
-    const newBook = new Book (input.title, input.author, input.pages);
+function addBookToLib (title, author, pages) {
+    const newBook = new Book (title, author, pages);
 
     library.push(newBook);
 }
@@ -56,8 +56,6 @@ function displayBooks () {
         bookContainer.appendChild(bookTitle);
         bookContainer.appendChild(bookAuthor);
         bookContainer.appendChild(bookPages);
-
-        console.table(library[book]);
     }
 }
 
@@ -66,6 +64,7 @@ displayBooks();
 const dialog = document.querySelector('dialog');
 const openBtn = document.querySelector('.bookFormOpen');
 const closeBtn = document.querySelector('.bookFormClose');
+const submitBtn = document.querySelector('.bookSubmit');
 
 openBtn.addEventListener('click', () => {
     dialog.showModal();
@@ -74,4 +73,24 @@ openBtn.addEventListener('click', () => {
 closeBtn.addEventListener('click', (e) => {
     e.preventDefault();
     dialog.close();
+})
+
+function submitBook () {
+    const newTitle = document.getElementById('title');
+    const newAuthor = document.getElementById('author');
+    const newPages = document.getElementById('pages');
+
+    addBookToLib(newTitle.value, newAuthor.value, newPages.value);
+    displayBooks();
+
+    newTitle.value = '';
+    newAuthor.value = '';
+    newPages.value = '';
+
+    newTitle.focus();
+}
+
+submitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    submitBook();
 })
